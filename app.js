@@ -6,7 +6,7 @@ function randNumCust(minCust, maxCust) {
 //Array that will be used to keep up with the sales numbers per hr
 const bhours = ["6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm"];
 
-//Object literals for each store location
+//Object literal for Seattle location
 let Seattle = {
   //These are the properties for this object
   minCust: 23,
@@ -58,7 +58,7 @@ let Seattle = {
     }
 
 }
-//Object literals for each store location
+//Object literal for Tokyo location
 let Tokyo = {
   //These are the properties for this object
   minCust: 3,
@@ -110,7 +110,7 @@ let Tokyo = {
     }
 
 }
-//Object literals for each store location
+//Object literal for Dubai location
 let Dubai = {
   //These are the properties for this object
   minCust: 11,
@@ -162,7 +162,7 @@ let Dubai = {
     }
 
 }
-//Object literals for each store location
+//Object literal for Paris location
 let Paris = {
   //These are the properties for this object
   minCust: 20,
@@ -214,7 +214,7 @@ let Paris = {
     }
 
 }
-//Object literals for each store location
+//Object literal for Lima location
 let Lima = {
   //These are the properties for this object
   minCust: 2,
