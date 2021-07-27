@@ -9,9 +9,14 @@ let Seattle =
         //console.log(this.custPerHr); //this logs the random customers per hour
         return this.custPerHr/this.avgCookieSale;//this returns the avg cookies sold per hour
         
-    }
+    },
+    results: [this.minCust, this.maxCust, this.avgCookieSale, this.custPerHr, this.cookiesPerHr]
+    
 }
 console.log(Seattle.cookiesPerHr());//logs cookies per hour based on custPerHr/avgCookieSale in Seattle
+console.log(Seattle.cookiesPerHr);//logs cookies sold per hr
+//console.log(Seattle.results);
+//console.log(results);
 
 let Tokyo = 
 {
@@ -25,6 +30,7 @@ let Tokyo =
     }
 }
 console.log(Tokyo.cookiesPerHr());//logs cookies per hour based on a custPerHr/avgCookieSale in Tokyo
+console.log(Tokyo.cookiesPerHr);//logs cookies sold per hr
 
 let Dubai = 
 {
@@ -38,6 +44,7 @@ let Dubai =
     }
 }
 console.log(Dubai.cookiesPerHr());//logs cookies per hour based on a custPerHr/avgCookieSale in Dubai
+console.log(Dubai.custPerHr);//logs cookies sold per hr
 
 let Paris = 
 {
@@ -51,7 +58,7 @@ let Paris =
     }
 }
 console.log(Paris.cookiesPerHr());//logs cookies per hour based on a custPerHr/avgCookieSale in Paris
-
+console.log(Paris.custPerHr);//logs cookies sold per hr
 let Lima = 
 {
     minCust: 2,
@@ -64,6 +71,8 @@ let Lima =
     }
 }
 console.log(Lima.cookiesPerHr());//logs cookies per hour based on a custPerHr/avgCookieSale in Paris
+console.log(Lima.custPerHr);//logs cookies sold per hr
+
 
 
 
