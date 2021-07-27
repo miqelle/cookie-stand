@@ -97,7 +97,7 @@ let Tokyo = {
     },
     render() {
       this.getCookiesSoldPerHour();
-      const unorderedList = document.getElementById('seattle');
+      const unorderedList = document.getElementById('tokyo');
       for (let i = 0; i < bhours.length; i++) {
         const listItem = document.createElement('li');
         //6am: 16 cookies
@@ -149,7 +149,7 @@ let Dubai = {
     },
     render() {
       this.getCookiesSoldPerHour();
-      const unorderedList = document.getElementById('seattle');
+      const unorderedList = document.getElementById('dubai');
       for (let i = 0; i < bhours.length; i++) {
         const listItem = document.createElement('li');
         //6am: 16 cookies
@@ -201,7 +201,7 @@ let Paris = {
     },
     render() {
       this.getCookiesSoldPerHour();
-      const unorderedList = document.getElementById('seattle');
+      const unorderedList = document.getElementById('paris');
       for (let i = 0; i < bhours.length; i++) {
         const listItem = document.createElement('li');
         //6am: 16 cookies
@@ -253,7 +253,7 @@ let Lima = {
     },
     render() {
       this.getCookiesSoldPerHour();
-      const unorderedList = document.getElementById('seattle');
+      const unorderedList = document.getElementById('lima');
       for (let i = 0; i < bhours.length; i++) {
         const listItem = document.createElement('li');
         //6am: 16 cookies
