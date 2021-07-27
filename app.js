@@ -16,8 +16,7 @@ let Seattle = {
     this.cookiesPerHr,
   ],
 };
-console.log(Seattle.cookiesPerHr()); //logs cookies per hour based on custPerHr/avgCookieSale in Seattle
-console.log(Seattle.cookiesPerHr); //logs cookies sold per hr
+console.log(Seattle.cookiesPerHr()); //logs cookies sold per hr
 //console.log(Seattle.results);
 //console.log(results);
 
@@ -31,8 +30,7 @@ let Tokyo = {
     return this.custPerHr / this.avgCookieSale; //this returns the avg cookies sold per hour
   },
 };
-console.log(Tokyo.cookiesPerHr()); //logs cookies per hour based on a custPerHr/avgCookieSale in Tokyo
-console.log(Tokyo.cookiesPerHr); //logs cookies sold per hr
+console.log(Tokyo.cookiesPerHr()); //logs cookies sold per hr
 
 let Dubai = {
   minCust: 11,
@@ -45,7 +43,7 @@ let Dubai = {
   },
 };
 console.log(Dubai.cookiesPerHr()); //logs cookies per hour based on a custPerHr/avgCookieSale in Dubai
-console.log(Dubai.custPerHr); //logs cookies sold per hr
+console.log(Dubai.custPerHr); //logs random customers per hr
 
 let Paris = {
   minCust: 20,
@@ -58,7 +56,7 @@ let Paris = {
   },
 };
 console.log(Paris.cookiesPerHr()); //logs cookies per hour based on a custPerHr/avgCookieSale in Paris
-console.log(Paris.custPerHr); //logs cookies sold per hr
+console.log(Paris.custPerHr); //logs random customers per hr
 let Lima = {
   minCust: 2,
   maxCust: 16,
@@ -70,6 +68,6 @@ let Lima = {
   },
 };
 console.log(Lima.cookiesPerHr()); //logs cookies per hour based on a custPerHr/avgCookieSale in Paris
-console.log(Lima.custPerHr); //logs cookies sold per hr
+console.log(Lima.custPerHr); //logs random customers per hr
 
 //Calculate the sum of the hourly totals....Display lists on sales.html
