@@ -50,4 +50,9 @@ nav img {
 ul, li {
   list-style: none;
 }
-
+header {
+  text-align: center;
+  font-size: 100px;
+  background-color: salmon;
+  font-family: 'Alfa Slab One', cursive;
+}
