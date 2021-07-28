@@ -58,6 +58,7 @@ let Seattle = {
     }
 
 }
+console.log(getCookiesSoldPerHour);
 //Object literal for Tokyo location
 let Tokyo = {
   //These are the properties for this object
