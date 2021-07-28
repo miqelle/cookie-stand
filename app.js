@@ -23,7 +23,7 @@ let Seattle = {
      //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
      for (let index = 0; index < bhours.length; index++) {
        //Add avg customer value for each hour to the array
-       this.custPerHour.push(randNumCust)(this.minCust, this.maxCust);//pass in min & max cust
+       this.custPerHour.push(randNumCust(this.minCust, this.maxCust));//pass in min & max cust
      }
      //console.log to check if the arrays and functions are working properly
     console.log( `The min value is ${this.minCust} the max value is ${this.maxCust}`);
@@ -58,7 +58,6 @@ let Seattle = {
     }
 
 }
-console.log(getCookiesSoldPerHour);
 //Object literal for Tokyo location
 let Tokyo = {
   //These are the properties for this object
@@ -76,7 +75,7 @@ let Tokyo = {
      //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
      for (let index = 0; index < bhours.length; index++) {
        //Add avg customer value for each hour to the array
-       this.custPerHour.push(randNumCust)(this.minCust, this.maxCust);//pass in min & max cust
+       this.custPerHour.push(randNumCust(this.minCust, this.maxCust));//pass in min & max cust
      }
      //console.log to check if the arrays and functions are working properly
     console.log( `The min value is ${this.minCust} the max value is ${this.maxCust}`);
@@ -128,7 +127,7 @@ let Dubai = {
      //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
      for (let index = 0; index < bhours.length; index++) {
        //Add avg customer value for each hour to the array
-       this.custPerHour.push(randNumCust)(this.minCust, this.maxCust);//pass in min & max cust
+       this.custPerHour.push(randNumCust(this.minCust, this.maxCust));//pass in min & max cust
      }
      //console.log to check if the arrays and functions are working properly
     console.log( `The min value is ${this.minCust} the max value is ${this.maxCust}`);
@@ -180,7 +179,7 @@ let Paris = {
      //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
      for (let index = 0; index < bhours.length; index++) {
        //Add avg customer value for each hour to the array
-       this.custPerHour.push(randNumCust)(this.minCust, this.maxCust);//pass in min & max cust
+       this.custPerHour.push(randNumCust(this.minCust, this.maxCust));//pass in min & max cust
      }
      //console.log to check if the arrays and functions are working properly
     console.log( `The min value is ${this.minCust} the max value is ${this.maxCust}`);
@@ -232,7 +231,7 @@ let Lima = {
      //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
      for (let index = 0; index < bhours.length; index++) {
        //Add avg customer value for each hour to the array
-       this.custPerHour.push(randNumCust)(this.minCust, this.maxCust);//pass in min & max cust
+       this.custPerHour.push(randNumCust(this.minCust, this.maxCust));//pass in min & max cust
      }
      //console.log to check if the arrays and functions are working properly
     console.log( `The min value is ${this.minCust} the max value is ${this.maxCust}`);
@@ -267,3 +266,9 @@ let Lima = {
     }
 
 }
+
+Seattle.render();
+Paris.render();
+Dubai.render();
+Lima.render();
+Tokyo.render();
