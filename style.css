@@ -1,5 +1,8 @@
 * {
     background-color: white;
+    font-family: 'Gowun Batang', serif;
+    font-family: 'Inconsolata', monospace;
+    font-family: 'Open Sans', sans-serif;
 }
   nav {
     display: flex;
