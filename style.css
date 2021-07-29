@@ -64,17 +64,7 @@ header {
   font-family: "Alfa Slab One", cursive;
   font-size: 30px;
 }
-caption {
-  text-align: center;
-  font-size: 40px;
-  color: rgb(32, 28, 28);
-}
 
-table {
-  border-color: salmon;
-  color: rgb(32, 28, 28);
-  border-style: ridge;
-}
 img {
   width: 40%;
   padding-left: 50px;
@@ -89,4 +79,14 @@ img {
   background-color: sandybrown;
   text-align: center;
   font-size: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  padding: 0.25rem;
+  text-align: left;
+  border: 1px solid black;
 }
