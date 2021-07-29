@@ -49,9 +49,9 @@ let Seattle = {
       let row = tbl.insertRow();
       let cell1 = row.insertCell();
       cell1.innerHTML = (`${dailyCookies}`);
-    }
+    },
     
-     /* render() {
+     render() {
       this.getCookiesSoldPerHour();
       const unorderedList = document.getElementById('seattle');
       for (let i = 0; i < bhours.length; i++) {
@@ -63,9 +63,8 @@ let Seattle = {
       const listItem = document.createElement('li');
       listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
       unorderedList.appendChild(listItem);
-    } */ 
+    } 
 }
-console.log(hourlySalesData);
 //Object literal for Tokyo location
 let Tokyo = {
   //These are the properties for this object
@@ -289,7 +288,7 @@ let Lima = {
 
 //the header row and footer row are created in their own stand-alone function
 
-/* Seattle.render(); */
+Seattle.render(); 
 Paris.render();
 Dubai.render();
 Lima.render();
