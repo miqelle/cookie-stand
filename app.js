@@ -1,10 +1,26 @@
 //function for random # of customers within range of data given
 function randNumCust(minCust, maxCust) {
-  return(Math.floor(Math.random() * (maxCust - minCust + 1)) + minCust);
+  return Math.floor(Math.random() * (maxCust - minCust + 1)) + minCust;
 }
 
 //Array that will be used to keep up with the sales numbers per hr
-const bhours = ["6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm"];
+const bhours = [
+  "6am",
+  "7am",
+  "8am",
+  "9am",
+  "10am",
+  "11am",
+  "12pm",
+  "1pm",
+  "2pm",
+  "3pm",
+  "4pm",
+  "5pm",
+  "6pm",
+  "7pm",
+  "8pm",
+];
 
 //Object literal for Seattle location
 let Seattle = {
@@ -17,54 +33,59 @@ let Seattle = {
   cookiesSoldPerHr: [],
   totalDailyCookies: 0,
 
-   //These are the methods for calculations
-   getCustPerHr: function () {
-     //Use the randNumCust method by using 'this'
-     //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
-     for (let index = 0; index < bhours.length; index++) {
-       //Add avg customer value for each hour to the array
-       this.custPerHour.push(randNumCust(this.minCust, this.maxCust));//pass in min & max cust
-     }
-     //console.log to check if the arrays and functions are working properly
-    console.log( `The min value is ${this.minCust} the max value is ${this.maxCust}`);
-    },
-    //calculate avg cookies per person
-    getCookiesSoldPerHour: function () {
-      //counts total cookies
-      totalDailyCookies = 0;
-      this.getCustPerHr();//loads up customer data
-      //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
-      for (let index = 0; index < this.custPerHour.length; index++) {
-        //Calculate number of cookies
-        let dailyCookies = Math.floor(this.custPerHour[index] * this.avgCookieSale);
-        //Get a whole number
-        this.cookiesSoldPerHr.push(dailyCookies);
-        //add to total
-        this.totalDailyCookies+=dailyCookies;
-      }
-    },
+  //These are the methods for calculations
+  getCustPerHr: function () {
+    //Use the randNumCust method by using 'this'
+    //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
+    for (let index = 0; index < bhours.length; index++) {
+      //Add avg customer value for each hour to the array
+      this.custPerHour.push(randNumCust(this.minCust, this.maxCust)); //pass in min & max cust
+    }
+    //console.log to check if the arrays and functions are working properly
+    console.log(
+      `The min value is ${this.minCust} the max value is ${this.maxCust}`
+    );
+  },
+  //calculate avg cookies per person
+  getCookiesSoldPerHour: function () {
+    //counts total cookies
+    totalDailyCookies = 0;
+    this.getCustPerHr(); //loads up customer data
+    //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
+    for (let index = 0; index < this.custPerHour.length; index++) {
+      //Calculate number of cookies
+      let dailyCookies = Math.floor(
+        this.custPerHour[index] * this.avgCookieSale
+      );
+      //Get a whole number
+      this.cookiesSoldPerHr.push(dailyCookies);
+      //add to total
+      this.totalDailyCookies += dailyCookies;
+    }
+  },
 
-    hourlySalesData: function() {
-      let tbl = document.getElementById("mainTable");
-      let row = tbl.insertRow();
-      let cell1 = row.insertCell();
-      cell1.innerHTML = (`${dailyCookies}`);
-    },
-    
-     render() {
-      this.getCookiesSoldPerHour();
-      const unorderedList = document.getElementById('seattle');
-      for (let i = 0; i < bhours.length; i++) {
-        const listItem = document.createElement('li');
-        //6am: 16 cookies
-        listItem.textContent = bhours[i] + ': ' + this.cookiesSoldPerHr[i] + ' cookies';
-        unorderedList.appendChild(listItem);
-      }
-      const listItem = document.createElement('li');
-      listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
+  hourlySalesData: function () {
+    let tbl = document.getElementById("mainTable");
+    let row = tbl.insertRow();
+    let cell1 = row.insertCell();
+    cell1.innerHTML = `${dailyCookies}`;
+  },
+
+  render() {
+    this.getCookiesSoldPerHour();
+    const unorderedList = document.getElementById("seattle");
+    for (let i = 0; i < bhours.length; i++) {
+      const listItem = document.createElement("li");
+      //6am: 16 cookies
+      listItem.textContent =
+        bhours[i] + ": " + this.cookiesSoldPerHr[i] + " cookies";
       unorderedList.appendChild(listItem);
-    } 
-}
+    }
+    const listItem = document.createElement("li");
+    listItem.textContent = "Total: " + this.totalDailyCookies + " cookies";
+    unorderedList.appendChild(listItem);
+  },
+};
 //Object literal for Tokyo location
 let Tokyo = {
   //These are the properties for this object
@@ -76,47 +97,51 @@ let Tokyo = {
   cookiesSoldPerHr: [],
   totalDailyCookies: 0,
 
-   //These are the methods for calculations
-   getCustPerHr: function () {
-     //Use the randNumCust method by using 'this'
-     //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
-     for (let index = 0; index < bhours.length; index++) {
-       //Add avg customer value for each hour to the array
-       this.custPerHour.push(randNumCust(this.minCust, this.maxCust));//pass in min & max cust
-     }
-     //console.log to check if the arrays and functions are working properly
-    console.log( `The min value is ${this.minCust} the max value is ${this.maxCust}`);
-    },
-    //calculate avg cookies per person
-    getCookiesSoldPerHour: function () {
-      //counts total cookies
-      totalDailyCookies = 0;
-      this.getCustPerHr();//loads up customer data
-      //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
-      for (let index = 0; index < this.custPerHour.length; index++) {
-        //Calculate number of cookies
-        let dailyCookies = Math.floor(this.custPerHour[index] * this.avgCookieSale);
-        //Get a whole number
-        this.cookiesSoldPerHr.push(dailyCookies);
-        //add to total
-        this.totalDailyCookies+=dailyCookies;
-      }
-    },
-    render() {
-      this.getCookiesSoldPerHour();
-      const unorderedList = document.getElementById('tokyo');
-      for (let i = 0; i < bhours.length; i++) {
-        const listItem = document.createElement('li');
-        //6am: 16 cookies
-        listItem.textContent = bhours[i] + ': ' + this.cookiesSoldPerHr[i] + ' cookies';
-        unorderedList.appendChild(listItem);
-      }
-      const listItem = document.createElement('li');
-      listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
+  //These are the methods for calculations
+  getCustPerHr: function () {
+    //Use the randNumCust method by using 'this'
+    //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
+    for (let index = 0; index < bhours.length; index++) {
+      //Add avg customer value for each hour to the array
+      this.custPerHour.push(randNumCust(this.minCust, this.maxCust)); //pass in min & max cust
+    }
+    //console.log to check if the arrays and functions are working properly
+    console.log(
+      `The min value is ${this.minCust} the max value is ${this.maxCust}`
+    );
+  },
+  //calculate avg cookies per person
+  getCookiesSoldPerHour: function () {
+    //counts total cookies
+    totalDailyCookies = 0;
+    this.getCustPerHr(); //loads up customer data
+    //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
+    for (let index = 0; index < this.custPerHour.length; index++) {
+      //Calculate number of cookies
+      let dailyCookies = Math.floor(
+        this.custPerHour[index] * this.avgCookieSale
+      );
+      //Get a whole number
+      this.cookiesSoldPerHr.push(dailyCookies);
+      //add to total
+      this.totalDailyCookies += dailyCookies;
+    }
+  },
+  render() {
+    this.getCookiesSoldPerHour();
+    const unorderedList = document.getElementById("tokyo");
+    for (let i = 0; i < bhours.length; i++) {
+      const listItem = document.createElement("li");
+      //6am: 16 cookies
+      listItem.textContent =
+        bhours[i] + ": " + this.cookiesSoldPerHr[i] + " cookies";
       unorderedList.appendChild(listItem);
-    } 
-
-}
+    }
+    const listItem = document.createElement("li");
+    listItem.textContent = "Total: " + this.totalDailyCookies + " cookies";
+    unorderedList.appendChild(listItem);
+  },
+};
 //Object literal for Dubai location
 let Dubai = {
   //These are the properties for this object
@@ -128,47 +153,51 @@ let Dubai = {
   cookiesSoldPerHr: [],
   totalDailyCookies: 0,
 
-   //These are the methods for calculations
-   getCustPerHr: function () {
-     //Use the randNumCust method by using 'this'
-     //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
-     for (let index = 0; index < bhours.length; index++) {
-       //Add avg customer value for each hour to the array
-       this.custPerHour.push(randNumCust(this.minCust, this.maxCust));//pass in min & max cust
-     }
-     //console.log to check if the arrays and functions are working properly
-    console.log( `The min value is ${this.minCust} the max value is ${this.maxCust}`);
-    },
-    //calculate avg cookies per person
-    getCookiesSoldPerHour: function () {
-      //counts total cookies
-      totalDailyCookies = 0;
-      this.getCustPerHr();//loads up customer data
-      //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
-      for (let index = 0; index < this.custPerHour.length; index++) {
-        //Calculate number of cookies
-        let dailyCookies = Math.floor(this.custPerHour[index] * this.avgCookieSale);
-        //Get a whole number
-        this.cookiesSoldPerHr.push(dailyCookies);
-        //add to total
-        this.totalDailyCookies+=dailyCookies;
-      }
-    },
-    render() {
-      this.getCookiesSoldPerHour();
-      const unorderedList = document.getElementById('dubai');
-      for (let i = 0; i < bhours.length; i++) {
-        const listItem = document.createElement('li');
-        //6am: 16 cookies
-        listItem.textContent = bhours[i] + ': ' + this.cookiesSoldPerHr[i] + ' cookies';
-        unorderedList.appendChild(listItem);
-      }
-      const listItem = document.createElement('li');
-      listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
+  //These are the methods for calculations
+  getCustPerHr: function () {
+    //Use the randNumCust method by using 'this'
+    //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
+    for (let index = 0; index < bhours.length; index++) {
+      //Add avg customer value for each hour to the array
+      this.custPerHour.push(randNumCust(this.minCust, this.maxCust)); //pass in min & max cust
+    }
+    //console.log to check if the arrays and functions are working properly
+    console.log(
+      `The min value is ${this.minCust} the max value is ${this.maxCust}`
+    );
+  },
+  //calculate avg cookies per person
+  getCookiesSoldPerHour: function () {
+    //counts total cookies
+    totalDailyCookies = 0;
+    this.getCustPerHr(); //loads up customer data
+    //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
+    for (let index = 0; index < this.custPerHour.length; index++) {
+      //Calculate number of cookies
+      let dailyCookies = Math.floor(
+        this.custPerHour[index] * this.avgCookieSale
+      );
+      //Get a whole number
+      this.cookiesSoldPerHr.push(dailyCookies);
+      //add to total
+      this.totalDailyCookies += dailyCookies;
+    }
+  },
+  render() {
+    this.getCookiesSoldPerHour();
+    const unorderedList = document.getElementById("dubai");
+    for (let i = 0; i < bhours.length; i++) {
+      const listItem = document.createElement("li");
+      //6am: 16 cookies
+      listItem.textContent =
+        bhours[i] + ": " + this.cookiesSoldPerHr[i] + " cookies";
       unorderedList.appendChild(listItem);
-    } 
-
-}
+    }
+    const listItem = document.createElement("li");
+    listItem.textContent = "Total: " + this.totalDailyCookies + " cookies";
+    unorderedList.appendChild(listItem);
+  },
+};
 //Object literal for Paris location
 let Paris = {
   //These are the properties for this object
@@ -180,47 +209,51 @@ let Paris = {
   cookiesSoldPerHr: [],
   totalDailyCookies: 0,
 
-   //These are the methods for calculations
-   getCustPerHr: function () {
-     //Use the randNumCust method by using 'this'
-     //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
-     for (let index = 0; index < bhours.length; index++) {
-       //Add avg customer value for each hour to the array
-       this.custPerHour.push(randNumCust(this.minCust, this.maxCust));//pass in min & max cust
-     }
-     //console.log to check if the arrays and functions are working properly
-    console.log( `The min value is ${this.minCust} the max value is ${this.maxCust}`);
-    },
-    //calculate avg cookies per person
-    getCookiesSoldPerHour: function () {
-      //counts total cookies
-      totalDailyCookies = 0;
-      this.getCustPerHr();//loads up customer data
-      //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
-      for (let index = 0; index < this.custPerHour.length; index++) {
-        //Calculate number of cookies
-        let dailyCookies = Math.floor(this.custPerHour[index] * this.avgCookieSale);
-        //Get a whole number
-        this.cookiesSoldPerHr.push(dailyCookies);
-        //add to total
-        this.totalDailyCookies+=dailyCookies;
-      }
-    },
-    render() {
-      this.getCookiesSoldPerHour();
-      const unorderedList = document.getElementById('paris');
-      for (let i = 0; i < bhours.length; i++) {
-        const listItem = document.createElement('li');
-        //6am: 16 cookies
-        listItem.textContent = bhours[i] + ': ' + this.cookiesSoldPerHr[i] + ' cookies';
-        unorderedList.appendChild(listItem);
-      }
-      const listItem = document.createElement('li');
-      listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
+  //These are the methods for calculations
+  getCustPerHr: function () {
+    //Use the randNumCust method by using 'this'
+    //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
+    for (let index = 0; index < bhours.length; index++) {
+      //Add avg customer value for each hour to the array
+      this.custPerHour.push(randNumCust(this.minCust, this.maxCust)); //pass in min & max cust
+    }
+    //console.log to check if the arrays and functions are working properly
+    console.log(
+      `The min value is ${this.minCust} the max value is ${this.maxCust}`
+    );
+  },
+  //calculate avg cookies per person
+  getCookiesSoldPerHour: function () {
+    //counts total cookies
+    totalDailyCookies = 0;
+    this.getCustPerHr(); //loads up customer data
+    //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
+    for (let index = 0; index < this.custPerHour.length; index++) {
+      //Calculate number of cookies
+      let dailyCookies = Math.floor(
+        this.custPerHour[index] * this.avgCookieSale
+      );
+      //Get a whole number
+      this.cookiesSoldPerHr.push(dailyCookies);
+      //add to total
+      this.totalDailyCookies += dailyCookies;
+    }
+  },
+  render() {
+    this.getCookiesSoldPerHour();
+    const unorderedList = document.getElementById("paris");
+    for (let i = 0; i < bhours.length; i++) {
+      const listItem = document.createElement("li");
+      //6am: 16 cookies
+      listItem.textContent =
+        bhours[i] + ": " + this.cookiesSoldPerHr[i] + " cookies";
       unorderedList.appendChild(listItem);
-    } 
-
-}
+    }
+    const listItem = document.createElement("li");
+    listItem.textContent = "Total: " + this.totalDailyCookies + " cookies";
+    unorderedList.appendChild(listItem);
+  },
+};
 //Object literal for Lima location
 let Lima = {
   //These are the properties for this object
@@ -232,63 +265,61 @@ let Lima = {
   cookiesSoldPerHr: [],
   totalDailyCookies: 0,
 
-   //These are the methods for calculations
-   getCustPerHr: function () {
-     //Use the randNumCust method by using 'this'
-     //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
-     for (let index = 0; index < bhours.length; index++) {
-       //Add avg customer value for each hour to the array
-       this.custPerHour.push(randNumCust(this.minCust, this.maxCust));//pass in min & max cust
-     }
-     //console.log to check if the arrays and functions are working properly
-    console.log( `The min value is ${this.minCust} the max value is ${this.maxCust}`);
-    },
-    //calculate avg cookies per person
-    getCookiesSoldPerHour: function () {
-      //counts total cookies
-      totalDailyCookies = 0;
-      this.getCustPerHr();//loads up customer data
-      //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
-      for (let index = 0; index < this.custPerHour.length; index++) {
-        //Calculate number of cookies
-        let dailyCookies = Math.floor(this.custPerHour[index] * this.avgCookieSale);
-        //Get a whole number
-        this.cookiesSoldPerHr.push(dailyCookies);
-        //add to total
-        this.totalDailyCookies+=dailyCookies;
-      }
-    },
-   render() {
-      this.getCookiesSoldPerHour();
-      const unorderedList = document.getElementById('lima');
-      for (let i = 0; i < bhours.length; i++) {
-        const listItem = document.createElement('li');
-        //6am: 16 cookies
-        listItem.textContent = bhours[i] + ': ' + this.cookiesSoldPerHr[i] + ' cookies';
-        unorderedList.appendChild(listItem);
-      }
-      const listItem = document.createElement('li');
-      listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
+  //These are the methods for calculations
+  getCustPerHr: function () {
+    //Use the randNumCust method by using 'this'
+    //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
+    for (let index = 0; index < bhours.length; index++) {
+      //Add avg customer value for each hour to the array
+      this.custPerHour.push(randNumCust(this.minCust, this.maxCust)); //pass in min & max cust
+    }
+    //console.log to check if the arrays and functions are working properly
+    console.log(
+      `The min value is ${this.minCust} the max value is ${this.maxCust}`
+    );
+  },
+  //calculate avg cookies per person
+  getCookiesSoldPerHour: function () {
+    //counts total cookies
+    totalDailyCookies = 0;
+    this.getCustPerHr(); //loads up customer data
+    //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
+    for (let index = 0; index < this.custPerHour.length; index++) {
+      //Calculate number of cookies
+      let dailyCookies = Math.floor(
+        this.custPerHour[index] * this.avgCookieSale
+      );
+      //Get a whole number
+      this.cookiesSoldPerHr.push(dailyCookies);
+      //add to total
+      this.totalDailyCookies += dailyCookies;
+    }
+  },
+  render() {
+    this.getCookiesSoldPerHour();
+    const unorderedList = document.getElementById("lima");
+    for (let i = 0; i < bhours.length; i++) {
+      const listItem = document.createElement("li");
+      //6am: 16 cookies
+      listItem.textContent =
+        bhours[i] + ": " + this.cookiesSoldPerHr[i] + " cookies";
       unorderedList.appendChild(listItem);
     }
- 
-}
-
+    const listItem = document.createElement("li");
+    listItem.textContent = "Total: " + this.totalDailyCookies + " cookies";
+    unorderedList.appendChild(listItem);
+  },
+};
 
 //function generate
-  
-
 
 //function to create a table
 
-
-
-
-//each cookie stand should have a separate render method that creates and appends its row to the table 
+//each cookie stand should have a separate render method that creates and appends its row to the table
 
 //the header row and footer row are created in their own stand-alone function
 
-Seattle.render(); 
+Seattle.render();
 Paris.render();
 Dubai.render();
 Lima.render();

@@ -1,8 +1,8 @@
 * {
   background-color: white;
-  font-family: 'Gowun Batang', serif;
-  font-family: 'Inconsolata', monospace;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Gowun Batang", serif;
+  font-family: "Inconsolata", monospace;
+  font-family: "Open Sans", sans-serif;
 }
 nav {
   display: flex;
@@ -47,27 +47,27 @@ nav img {
   justify-content: space-between;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
 }
 header {
   text-align: center;
   font-size: 80px;
   background-color: salmon;
-  font-family: 'Alfa Slab One', cursive;
+  font-family: "Alfa Slab One", cursive;
   color: rgb(32, 28, 28);
 }
 .headerTwo {
   text-align: center;
   background-color: sandybrown;
-  font-family: 'Alfa Slab One', cursive;
+  font-family: "Alfa Slab One", cursive;
   font-size: 30px;
-  
 }
 caption {
   text-align: center;
   font-size: 40px;
-  color: rgb(32, 28, 28);;
+  color: rgb(32, 28, 28);
 }
 
 table {
@@ -79,5 +79,14 @@ img {
   width: 40%;
   padding-left: 50px;
 }
-
-
+.footer {
+  background-color: sandybrown;
+  padding: 10px;
+  text-align: center;
+  color: rgb(32, 28, 28);
+}
+.footerText {
+  background-color: sandybrown;
+  text-align: center;
+  font-size: 10px;
+}
