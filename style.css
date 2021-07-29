@@ -12,7 +12,7 @@ nav {
   cursor: pointer;
 }
 nav img {
-  width: 200px;
+  width: 100px;
 }
 .nav-links {
   flex: 1;
@@ -52,7 +52,7 @@ ul, li {
 }
 header {
   text-align: center;
-  font-size: 100px;
+  font-size: 80px;
   background-color: salmon;
   font-family: 'Alfa Slab One', cursive;
   color: rgb(32, 28, 28);
@@ -61,7 +61,7 @@ header {
   text-align: center;
   background-color: sandybrown;
   font-family: 'Alfa Slab One', cursive;
-  font-size: 40px;
+  font-size: 30px;
   
 }
 caption {
@@ -75,4 +75,9 @@ table {
   color: rgb(32, 28, 28);
   border-style: ridge;
 }
+img {
+  width: 40%;
+  padding-left: 50px;
+}
+
 
