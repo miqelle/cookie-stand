@@ -43,7 +43,15 @@ let Seattle = {
         this.totalDailyCookies+=dailyCookies;
       }
     },
-    render() {
+
+    hourlySalesData: function() {
+      let tbl = document.getElementById("mainTable");
+      let row = tbl.insertRow();
+      let cell1 = row.insertCell();
+      cell1.innerHTML = (`${dailyCookies}`);
+    }
+    
+     /* render() {
       this.getCookiesSoldPerHour();
       const unorderedList = document.getElementById('seattle');
       for (let i = 0; i < bhours.length; i++) {
@@ -55,9 +63,9 @@ let Seattle = {
       const listItem = document.createElement('li');
       listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
       unorderedList.appendChild(listItem);
-    }
-
+    } */ 
 }
+console.log(hourlySalesData);
 //Object literal for Tokyo location
 let Tokyo = {
   //These are the properties for this object
@@ -107,7 +115,7 @@ let Tokyo = {
       const listItem = document.createElement('li');
       listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
       unorderedList.appendChild(listItem);
-    }
+    } 
 
 }
 //Object literal for Dubai location
@@ -159,7 +167,7 @@ let Dubai = {
       const listItem = document.createElement('li');
       listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
       unorderedList.appendChild(listItem);
-    }
+    } 
 
 }
 //Object literal for Paris location
@@ -211,7 +219,7 @@ let Paris = {
       const listItem = document.createElement('li');
       listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
       unorderedList.appendChild(listItem);
-    }
+    } 
 
 }
 //Object literal for Lima location
@@ -251,7 +259,7 @@ let Lima = {
         this.totalDailyCookies+=dailyCookies;
       }
     },
-    render() {
+   render() {
       this.getCookiesSoldPerHour();
       const unorderedList = document.getElementById('lima');
       for (let i = 0; i < bhours.length; i++) {
@@ -264,10 +272,24 @@ let Lima = {
       listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
       unorderedList.appendChild(listItem);
     }
-
+ 
 }
 
-Seattle.render();
+
+//function generate
+  
+
+
+//function to create a table
+
+
+
+
+//each cookie stand should have a separate render method that creates and appends its row to the table 
+
+//the header row and footer row are created in their own stand-alone function
+
+/* Seattle.render(); */
 Paris.render();
 Dubai.render();
 Lima.render();

@@ -55,4 +55,24 @@ header {
   font-size: 100px;
   background-color: salmon;
   font-family: 'Alfa Slab One', cursive;
+  color: rgb(32, 28, 28);
 }
+.headerTwo {
+  text-align: center;
+  background-color: sandybrown;
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 40px;
+  
+}
+caption {
+  text-align: center;
+  font-size: 40px;
+  color: rgb(32, 28, 28);;
+}
+
+table {
+  border-color: salmon;
+  color: rgb(32, 28, 28);
+  border-style: ridge;
+}
+
