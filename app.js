@@ -344,8 +344,39 @@ let Lima = {
   },
 };
 
+//Array for city objects
+const citylocations = [Seattle, Tokyo, Paris, Lima, Dubai];
+
+//function for total footers
+function renderFooter() {
+  let footerRow = document.createElement("tr"); //this creates a tr node
+  let footerHdr = document.createElement("th");
+  footerHdr.textContent = "Totals";
+  footerRow.appendChild(footerHdr);
+
+  let grandTotal = 0;
+  //for loop to go through bhours array
+  for (let i = 0; i < bhours.length; i++) {
+    let hourlyTotal = 0;
+
+    for (let j = 0; j < citylocations.length; j++) {
+      hourlyTotal += citylocations[j].cookiesSoldPerHr[i];
+      grandTotal += hourlyTotal;
+    }
+    footerHdr = document.createElement("th");
+    footerHdr.textContent = hourlyTotal;
+    footerRow.appendChild(footerHdr);
+  }
+  footerHdr = document.createElement("th");
+  footerHdr.textContent = grandTotal;
+  footerRow.appendChild(footerHdr);
+  table.appendChild(footerRow);
+}
+
 Seattle.render();
 Paris.render();
 Dubai.render();
 Lima.render();
 Tokyo.render();
+
+renderFooter();
