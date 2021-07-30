@@ -1,84 +1,9 @@
 * {
+  box-sizing: border-box;
   background-color: white;
   font-family: "Gowun Batang", serif;
   font-family: "Inconsolata", monospace;
   font-family: "Open Sans", sans-serif;
-}
-nav {
-  display: flex;
-  padding: 2% 6%;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-}
-nav img {
-  width: 100px;
-}
-.nav-links {
-  flex: 1;
-  text-align: right;
-}
-.nav-links ul li {
-  list-style: none;
-  display: inline-block;
-  padding: 8px 12px;
-  position: relative;
-  font-size: 20px;
-}
-.nav-links ul li a {
-  color: rgb(32, 28, 28);
-  text-decoration: none;
-  font-size: 13px;
-}
-.nav-links ul li::after {
-  content: "";
-  width: 0%;
-  height: 2px;
-  background: orangered;
-  display: block;
-  margin: auto;
-  transition: 0.5s;
-}
-.nav-links ul li:hover::after {
-  width: 100%;
-}
-.content {
-  list-style: none;
-  justify-content: space-between;
-}
-
-ul,
-li {
-  list-style: none;
-}
-header {
-  text-align: center;
-  font-size: 80px;
-  background-color: salmon;
-  font-family: "Alfa Slab One", cursive;
-  color: rgb(32, 28, 28);
-}
-.headerTwo {
-  text-align: center;
-  background-color: sandybrown;
-  font-family: "Alfa Slab One", cursive;
-  font-size: 30px;
-}
-
-img {
-  width: 40%;
-  padding-left: 50px;
-}
-.footer {
-  background-color: sandybrown;
-  padding: 10px;
-  text-align: center;
-  color: rgb(32, 28, 28);
-}
-.footerText {
-  background-color: sandybrown;
-  text-align: center;
-  font-size: 10px;
 }
 
 table {
@@ -89,4 +14,45 @@ th, td {
   padding: 0.25rem;
   text-align: left;
   border: 1px solid black;
+}
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+li {
+  float: right;
+}
+
+.nav li a {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.2em;
+  line-height: 40px;
+  height: 40px;
+  display: block;
+  padding: 8px;
+  list-style: none;
+}
+
+ 
+
+ 
+img {
+  float: left;
+}
+h2 {
+    float: right;
 }
