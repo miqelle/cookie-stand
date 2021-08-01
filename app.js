@@ -1,382 +1,156 @@
-//function for random # of customers within range of data given
-function randNumCust(minCust, maxCust) {
-  return Math.floor(Math.random() * (maxCust - minCust + 1)) + minCust;
+'use strict';
+
+//FIRST CONSTRUCTOR FUNCTION DEFINES TEMPLATES FOR STORES
+// storeHrs is a global variable because every store needs it
+
+
+
+var storeHrs = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
+// declared var for TOTAL cookies per hr for ALL locations
+var totalCookiesPerHour = [];
+
+
+//function used to add store
+function addStore (event) {
+  event.preventDefault();
+
+  var name =event.target.name.value;
+  var minCust = event.target.minCust.value;
+  var maxCust = event.target.maxCust.value;
+  var avgCustomerSale = event.target.avgCustomerSale.value;
+
+  var newStore = new Store (name, minCust, maxCust,avgCustomerSale);
+  // Can't use render method anymore, using push method to push the new store entered by user onto the AllStores array (or at the end of the table)
+  allStores.push(newStore);
+  //this will clear out the existing table and build it again
+  renderTable();
 }
 
-//reference for table
-const table = document.getElementById("salesTable");
 
-//Array that will be used to keep up with the sales numbers per hr
-const bhours = [
-  "6am",
-  "7am",
-  "8am",
-  "9am",
-  "10am",
-  "11am",
-  "12pm",
-  "1pm",
-  "2pm",
-  "3pm",
-  "4pm",
-  "5pm",
-  "6pm",
-  "7pm",
-  "8pm",
-];
-console.log(table);
-//create table header function
-function createHeader() {
-  let headerRow = document.createElement("tr"); //this creates a tr node
-  let tblHdr = document.createElement("th");
-  tblHdr.textContent = "Locations";
-  headerRow.appendChild(tblHdr);
-  //for loop to go through bhours array
-  for (let i = 0; i < bhours.length; i++) {
-    tblHdr = document.createElement("th");
-    tblHdr.textContent = bhours[i];
-    headerRow.appendChild(tblHdr);
+//store constructor and prototype methods
+function Store (name, minCust, maxCust,avgCustomerSale) { //constructor function
+  this.name = name;
+  this.minCust = minCust;
+  this.maxCust = maxCust;
+  this.totalCookies = 0;
+  this.cookieSalesPerHr = [];
+  this.avgCustSale = avgCustomerSale;
+  this.storeHrs= storeHrs;
+}
+
+Store.prototype.render= function() {// function to create table
+  var mainTable = document.getElementById('mainTable'); // We get a reference to the table here
+  var storeTableRow = document.createElement('tr');// create a table row because a new is needed for FOR EVERY STORE 
+  //create table data for store name
+  var storeNameTableData = document.createElement('td'); // EVERY ROW HAS TABLE DATA so I had to reference to the td
+  // set the content of the table data
+  storeNameTableData.textContent = this.name; 
+  //added table data to the ROW object and by passing it in
+  storeTableRow.appendChild(storeNameTableData);
+
+  
+ 
+  // Loop through storeHrs and create table data for each one
+  for (var i = 0; i < this.storeHrs.length; i++) {
+    var custThisHour = this.getRandomNum(this.minCust,this.maxCust);
+    var cookiesPerHr = Math.round(this.avgCustSale * custThisHour);
+    this.cookieSalesPerHr.push(cookiesPerHr);//use push method to add cookie sales per hr onto array
+    this.totalCookies = this.totalCookies + cookiesPerHr;
+    //I have two variables for cookies per hour to represent the totals for each row and column
+    // this is the last table row
+    totalCookiesPerHour[i] = totalCookiesPerHour[i] + cookiesPerHr;
+    var specificHourTableData = document.createElement('td');
+    specificHourTableData.textContent = cookiesPerHr;
+    storeTableRow.appendChild(specificHourTableData);
   }
-  tblHdr = document.createElement("th");
-  tblHdr.textContent = "Daily Location Total";
-  headerRow.appendChild(tblHdr);
-  table.appendChild(headerRow);
-}
 
-createHeader();
+  var dailyLocationTotal = document.createElement('td'); // creating daily location total cell
+  dailyLocationTotal.textContent = this.totalCookies;// rendering total cookies into cell
+  storeTableRow.appendChild(dailyLocationTotal); // adding daily locaton numbers to cell
 
-//Object literal for Seattle location
-let Seattle = {
-  //These are the properties for this object
-  minCust: 23,
-  maxCust: 65,
-  avgCookieSale: 6.3,
-  //The arrays should be the same length as the business hours array
-  custPerHour: [],
-  cookiesSoldPerHr: [],
-  totalDailyCookies: 0,
-
-  //These are the methods for calculations
-  getCustPerHr: function () {
-    //Use the randNumCust method by using 'this'
-    //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
-    for (let index = 0; index < bhours.length; index++) {
-      //Add avg customer value for each hour to the array
-      this.custPerHour.push(randNumCust(this.minCust, this.maxCust)); //pass in min & max cust
-    }
-    //console.log to check if the arrays and functions are working properly
-    console.log(
-      `The min value is ${this.minCust} the max value is ${this.maxCust}`
-    );
-  },
-  //calculate avg cookies per person
-  getCookiesSoldPerHour: function () {
-    //counts total cookies
-    totalDailyCookies = 0;
-    this.getCustPerHr(); //loads up customer data
-    //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
-    for (let index = 0; index < this.custPerHour.length; index++) {
-      //Calculate number of cookies
-      let dailyCookies = Math.floor(
-        this.custPerHour[index] * this.avgCookieSale
-      );
-      //Get a whole number
-      this.cookiesSoldPerHr.push(dailyCookies);
-      //add to total
-      this.totalDailyCookies += dailyCookies;
-    }
-  },
-
-  render() {
-    this.getCookiesSoldPerHour();
-    let dataRow = document.createElement("tr"); //this creates a tr node
-    let seattleData = document.createElement("td");
-    seattleData.textContent = "Seattle";
-    dataRow.appendChild(seattleData);
-    //for loop to go through bhours array
-    for (let i = 0; i < bhours.length; i++) {
-      seattleData = document.createElement("td");
-      seattleData.textContent = this.cookiesSoldPerHr[i];
-      dataRow.appendChild(seattleData);
-    }
-    seattleData = document.createElement("td");
-    seattleData.textContent = this.totalDailyCookies;
-    dataRow.appendChild(seattleData);
-    table.appendChild(dataRow);
-  },
+  // added the row to the table
+  mainTable.appendChild(storeTableRow);
 };
 
-//Object literal for Tokyo location
-let Tokyo = {
-  //These are the properties for this object
-  minCust: 3,
-  maxCust: 24,
-  avgCookieSale: 1.2,
-  //The arrays should be the same length as the business hours array
-  custPerHour: [],
-  cookiesSoldPerHr: [],
-  totalDailyCookies: 0,
-
-  //These are the methods for calculations
-  getCustPerHr: function () {
-    //Use the randNumCust method by using 'this'
-    //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
-    for (let index = 0; index < bhours.length; index++) {
-      //Add avg customer value for each hour to the array
-      this.custPerHour.push(randNumCust(this.minCust, this.maxCust)); //pass in min & max cust
-    }
-    //console.log to check if the arrays and functions are working properly
-    console.log(
-      `The min value is ${this.minCust} the max value is ${this.maxCust}`
-    );
-  },
-  //calculate avg cookies per person
-  getCookiesSoldPerHour: function () {
-    //counts total cookies
-    totalDailyCookies = 0;
-    this.getCustPerHr(); //loads up customer data
-    //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
-    for (let index = 0; index < this.custPerHour.length; index++) {
-      //Calculate number of cookies
-      let dailyCookies = Math.floor(
-        this.custPerHour[index] * this.avgCookieSale
-      );
-      //Get a whole number
-      this.cookiesSoldPerHr.push(dailyCookies);
-      //add to total
-      this.totalDailyCookies += dailyCookies;
-    }
-  },
-  render() {
-    this.getCookiesSoldPerHour();
-    let dataRow = document.createElement("tr"); //this creates a tr node
-    let tokyoData = document.createElement("td");
-    tokyoData.textContent = "Tokyo";
-    dataRow.appendChild(tokyoData);
-    //for loop to go through bhours array
-    for (let i = 0; i < bhours.length; i++) {
-      tokyoData = document.createElement("td");
-      tokyoData.textContent = this.cookiesSoldPerHr[i];
-      dataRow.appendChild(tokyoData);
-    }
-    tokyoData = document.createElement("td");
-    tokyoData.textContent = this.totalDailyCookies;
-    dataRow.appendChild(tokyoData);
-    table.appendChild(dataRow);
-  },
+Store.prototype.getRandomNum = function(min, max) { // Took getRandomNum and turned it into a method
+  min = Math.ceil(min); // The same code still works in the method
+  max = Math.floor(max);// The only thing I had to change was the function to the method, and line34 to this.getRandom
+  return Math.floor(Math.random() * (max - min)) + min;
 };
 
-//Object literal for Dubai location
-let Dubai = {
-  //These are the properties for this object
-  minCust: 11,
-  maxCust: 38,
-  avgCookieSale: 3.7,
-  //The arrays should be the same length as the business hours array
-  custPerHour: [],
-  cookiesSoldPerHr: [],
-  totalDailyCookies: 0,
-
-  //These are the methods for calculations
-  getCustPerHr: function () {
-    //Use the randNumCust method by using 'this'
-    //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
-    for (let index = 0; index < bhours.length; index++) {
-      //Add avg customer value for each hour to the array
-      this.custPerHour.push(randNumCust(this.minCust, this.maxCust)); //pass in min & max cust
-    }
-    //console.log to check if the arrays and functions are working properly
-    console.log(
-      `The min value is ${this.minCust} the max value is ${this.maxCust}`
-    );
-  },
-  //calculate avg cookies per person
-  getCookiesSoldPerHour: function () {
-    //counts total cookies
-    totalDailyCookies = 0;
-    this.getCustPerHr(); //loads up customer data
-    //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
-    for (let index = 0; index < this.custPerHour.length; index++) {
-      //Calculate number of cookies
-      let dailyCookies = Math.floor(
-        this.custPerHour[index] * this.avgCookieSale
-      );
-      //Get a whole number
-      this.cookiesSoldPerHr.push(dailyCookies);
-      //add to total
-      this.totalDailyCookies += dailyCookies;
-    }
-  },
-  render() {
-    this.getCookiesSoldPerHour();
-    let dataRow = document.createElement("tr"); //this creates a tr node
-    let dubaiData = document.createElement("td");
-    dubaiData.textContent = "Dubai";
-    dataRow.appendChild(dubaiData);
-    //for loop to go through bhours array
-    for (let i = 0; i < bhours.length; i++) {
-      dubaiData = document.createElement("td");
-      dubaiData.textContent = this.cookiesSoldPerHr[i];
-      dataRow.appendChild(dubaiData);
-    }
-    dubaiData = document.createElement("td");
-    dubaiData.textContent = this.totalDailyCookies;
-    dataRow.appendChild(dubaiData);
-    table.appendChild(dataRow);
-  },
-};
-//Object literal for Paris location
-let Paris = {
-  //These are the properties for this object
-  minCust: 20,
-  maxCust: 38,
-  avgCookieSale: 2.3,
-  //The arrays should be the same length as the business hours array
-  custPerHour: [],
-  cookiesSoldPerHr: [],
-  totalDailyCookies: 0,
-
-  //These are the methods for calculations
-  getCustPerHr: function () {
-    //Use the randNumCust method by using 'this'
-    //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
-    for (let index = 0; index < bhours.length; index++) {
-      //Add avg customer value for each hour to the array
-      this.custPerHour.push(randNumCust(this.minCust, this.maxCust)); //pass in min & max cust
-    }
-    //console.log to check if the arrays and functions are working properly
-    console.log(
-      `The min value is ${this.minCust} the max value is ${this.maxCust}`
-    );
-  },
-  //calculate avg cookies per person
-  getCookiesSoldPerHour: function () {
-    //counts total cookies
-    totalDailyCookies = 0;
-    this.getCustPerHr(); //loads up customer data
-    //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
-    for (let index = 0; index < this.custPerHour.length; index++) {
-      //Calculate number of cookies
-      let dailyCookies = Math.floor(
-        this.custPerHour[index] * this.avgCookieSale
-      );
-      //Get a whole number
-      this.cookiesSoldPerHr.push(dailyCookies);
-      //add to total
-      this.totalDailyCookies += dailyCookies;
-    }
-  },
-  render() {
-    this.getCookiesSoldPerHour();
-    let dataRow = document.createElement("tr"); //this creates a tr node
-    let parisData = document.createElement("td");
-    parisData.textContent = "Paris";
-    dataRow.appendChild(parisData);
-    //for loop to go through bhours array
-    for (let i = 0; i < bhours.length; i++) {
-      parisData = document.createElement("td");
-      parisData.textContent = this.cookiesSoldPerHr[i];
-      dataRow.appendChild(parisData);
-    }
-    parisData = document.createElement("td");
-    parisData.textContent = this.totalDailyCookies;
-    dataRow.appendChild(parisData);
-    table.appendChild(dataRow);
-  },
-};
-//Object literal for Lima location
-let Lima = {
-  //These are the properties for this object
-  minCust: 2,
-  maxCust: 16,
-  avgCookieSale: 4.6,
-  //The arrays should be the same length as the business hours array
-  custPerHour: [],
-  cookiesSoldPerHr: [],
-  totalDailyCookies: 0,
-
-  //These are the methods for calculations
-  getCustPerHr: function () {
-    //Use the randNumCust method by using 'this'
-    //Add each randNumCust to the array where each index aligns with a business hour in the bhours array
-    for (let index = 0; index < bhours.length; index++) {
-      //Add avg customer value for each hour to the array
-      this.custPerHour.push(randNumCust(this.minCust, this.maxCust)); //pass in min & max cust
-    }
-    //console.log to check if the arrays and functions are working properly
-    console.log(
-      `The min value is ${this.minCust} the max value is ${this.maxCust}`
-    );
-  },
-  //calculate avg cookies per person
-  getCookiesSoldPerHour: function () {
-    //counts total cookies
-    totalDailyCookies = 0;
-    this.getCustPerHr(); //loads up customer data
-    //the loop loads up cookiesSoldPerHour by iterating through avg customer per hour array
-    for (let index = 0; index < this.custPerHour.length; index++) {
-      //Calculate number of cookies
-      let dailyCookies = Math.floor(
-        this.custPerHour[index] * this.avgCookieSale
-      );
-      //Get a whole number
-      this.cookiesSoldPerHr.push(dailyCookies);
-      //add to total
-      this.totalDailyCookies += dailyCookies;
-    }
-  },
-  render() {
-    this.getCookiesSoldPerHour();
-    let dataRow = document.createElement("tr"); //this creates a tr node
-    let limaData = document.createElement("td");
-    limaData.textContent = "Lima";
-    dataRow.appendChild(limaData);
-    //for loop to go through bhours array
-    for (let i = 0; i < bhours.length; i++) {
-      limaData = document.createElement("td");
-      limaData.textContent = this.cookiesSoldPerHr[i];
-      dataRow.appendChild(limaData);
-    }
-    limaData = document.createElement("td");
-    limaData.textContent = this.totalDailyCookies;
-    dataRow.appendChild(limaData);
-    table.appendChild(dataRow);
-  },
-};
-
-//Array for city objects
-const citylocations = [Seattle, Tokyo, Paris, Lima, Dubai];
-
-//function for total footers
-function renderFooter() {
-  let footerRow = document.createElement("tr"); //this creates a tr node
-  let footerHdr = document.createElement("th");
-  footerHdr.textContent = "Totals";
-  footerRow.appendChild(footerHdr);
-
-  let grandTotal = 0;
-  //for loop to go through bhours array
-  for (let i = 0; i < bhours.length; i++) {
-    let hourlyTotal = 0;
-
-    for (let j = 0; j < citylocations.length; j++) {
-      hourlyTotal += citylocations[j].cookiesSoldPerHr[i];
-      grandTotal += hourlyTotal;
-    }
-    footerHdr = document.createElement("th");
-    footerHdr.textContent = hourlyTotal;
-    footerRow.appendChild(footerHdr);
+//these functions render functions
+function renderTimeDisplay() {
+  var mainTable = document.getElementById('mainTable');
+  var storeTableRow = document.createElement('tr');
+  storeTableRow.appendChild(document.createElement('th'));
+  //loop adds store hours as it iterates from index 0, adding each hr onto the page with textContent property
+  for (var i = 0; i < storeHrs.length; i++) {
+    var storeHrsTableCell = document.createElement('th');
+    storeHrsTableCell.textContent = storeHrs[i];
+    storeTableRow.appendChild(storeHrsTableCell);
   }
-  footerHdr = document.createElement("th");
-  footerHdr.textContent = grandTotal;
-  footerRow.appendChild(footerHdr);
-  table.appendChild(footerRow);
+  var dailyLocationTotal = document.createElement('th'); // had to create table data and store to var
+  dailyLocationTotal.textContent = 'Daily Location Total';
+  storeTableRow.appendChild(dailyLocationTotal); // adding daily location total string to cell
+  mainTable.appendChild(storeTableRow);
 }
 
-Seattle.render();
-Paris.render();
-Dubai.render();
-Lima.render();
-Tokyo.render();
+function renderHourlyTotals() {
+  var mainTable = document.getElementById('mainTable');
+  var storeTableRow = document.createElement('tr');
+  var total = document.createElement('td'); // had to create table data and store to var
+  var grandTotal = 0;
+  total.textContent = 'Totals';
+  storeTableRow.appendChild(total);
+  for (var i = 0; i < storeHrs.length; i++) {
+    var totalsCell = document.createElement('td');
+    totalsCell.textContent = totalCookiesPerHour[i];
+    storeTableRow.appendChild(totalsCell);
+    grandTotal = grandTotal + totalCookiesPerHour[i];
+  }
+  // adding daily location total string to cell
+  var grandTotalCell = document.createElement('td');
+  grandTotalCell.textContent = grandTotal;
+  storeTableRow.appendChild(grandTotalCell);
+  mainTable.appendChild(storeTableRow);
+}
 
-renderFooter();
+//build a renderTable function that when called will build the table from the top to bottom
+function renderTable() {
+  // write a for loop to loop through each of store hours
+  totalCookiesPerHour = [];
+  //now we have an array of zeros and each zero is at an index that cooresponds to store hour
+  for (var i = 0; i < storeHrs.length; i++) {
+    totalCookiesPerHour.push(0);
+  }
+  // we need to add cookiesPerHr that was calculated in the beginning
+  // we create our table again and then set the inner HTML to an empty string. .innerHTML clears all data in table element
+  var mainTable = document.getElementById('mainTable');
+  mainTable.innerHTML = '';
+  // grab timeDisplay function as this renders the times of the store--so this should be step #1 (delete out old timeDisplay function
+  renderTimeDisplay();
+  // using a for loop to cycle through each store in the allStores array and called allStores.render()
+  // The loop will run through the array and render ALL STORES to the table
+  for (var k = 0; k < allStores.length; k++) {
+    allStores[k].render();
+  }
+  //rendering hourly totals inside renderTable function to display hourly totals on the table
+  renderHourlyTotals();
+}
+
+//this code is what makes the table work
+var storeForm = document.getElementById('addStore');
+storeForm.addEventListener('submit', addStore);
+
+
+// Below each instance are the render method calls/function calls for each location using listOfTimes
+var seattleStore = new Store('Seattle',23,65,6.3); // new Store(arguments)
+var tokyoStore = new Store('Tokyo',3,24,1.2);// new variables aren't necessary
+var dubaiStore = new Store('Dubai',11,38,3.7);
+var parisStore = new Store('Paris',20,38,2.3);
+var limaStore = new Store('Lima',2,16,4.7);
+
+// created an array using variables holding store names as indexes in the new array
+var allStores = [seattleStore,tokyoStore,dubaiStore,parisStore,limaStore];
+
+renderTable();

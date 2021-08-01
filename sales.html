@@ -1,43 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pat's Salmon Cookies</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    
-    <div class="nav">
-      <ul>
-        <img src="./images/salmon.png" alt="" width="200" height="70" />
-        <li><a href="./index.html">Home</a></li>
-        <li><a href="./sales.html">Sales</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact Us</a></li>
-      </ul>
-    </div>
-    
-    <div class="form">
-      <form action="">
-        <fieldset>
-          <legend>Add New Store</legend>
-          <label for="">Store Location</label>
-          <input type="text"><br>
-          <label for="">Minimum Customers Per Hour</label>
-          <input type="text"><br>
-          <label for="">Maximum Customers Per Hour</label>
-          <input type="text">
-          <button>Submit</button>
 
-        </fieldset>
-      </form>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pats Salmon Cookies</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-    <table id="salesTable"></table>
-   
+<body>
+  <div class="nav">
+    <ul>
+      <li><a href="./index.html">Customer View</a></li>
+      <li><a href="./sales.html">Sales</a></li>
+    </ul>
+  </div>
+<main>
+  <form id="addStore">
+    <fieldset>
+      <legend id="newStore"> Add New Location:</legend>
+    </fieldset>
+      <legend>Name:
+        <input type="text" name="name">
+      </legend>
+      <legend>Minimum Customers:
+        <input type="number" name="minCust">
+      </legend>
+      <legend>Maximum Customers:
+        <input type="number" name="maxCust">
+      </legend>
+      <legend>Average Customer Sales:
+        <input type="number" name="avgCustomerSale">
+      </legend>
+        <input type="submit" name="submit" id="submit">
+      </fieldset>
+  </form>
   
-    <script src="app.js"></script>
-  </body>
+  <p class="location"> Sales By Location</p>
+<table id ="mainTable">
+</table>
+
+<script src="app.js"></script>
+<footer>
+  <table id="contactInfo">
+    <tr>
+      <td>Seattle:(206)-544-4343</td>
+      <td>Tokyo: 080-1234-5678</td>
+      <td>Dubai: 971-2222-4587</td>
+      <td>Paris: 211-9854-2147</td>
+    <td>Lima: 598-1234-7854</td>
+    </tr>
+  </table>
+  <table id="locations">
+    <tr>
+      <td>Seattle:324 4th Ave S, 98103</td>
+      <td>Tokyo:106-0044東京都</td>
+      <td>Dubai: 66 Al Marsa St,0000</td>
+      <td>Paris:48 Blvd. Jourdan, 75014 Paris, France.</td>
+      <td>Lima: Av. Larco 1301, Miraflores</td>
+      <td>Store Hours: 6am - 7pm PST</td>
+    <tr>
+    </table>
+</footer>
+</main>
+</body>
 </html>
