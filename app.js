@@ -1,25 +1,22 @@
 'use strict';
 
-//FIRST CONSTRUCTOR FUNCTION DEFINES TEMPLATES FOR STORES
-// storeHrs is a global variable because every store needs it
+//array for store hours 
+const storeHrs = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
 
-
-
-var storeHrs = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
-// declared var for TOTAL cookies per hr for ALL locations
-var totalCookiesPerHour = [];
+// total cookies per hour for all stores
+let totalCookiesPerHour = [];
 
 
 //function used to add store
 function addStore (event) {
   event.preventDefault();
 
-  var name =event.target.name.value;
-  var minCust = event.target.minCust.value;
-  var maxCust = event.target.maxCust.value;
-  var avgCustomerSale = event.target.avgCustomerSale.value;
+  let name =event.target.name.value;
+  let minCust = event.target.minCust.value;
+  let maxCust = event.target.maxCust.value;
+  let avgCustomerSale = event.target.avgCustomerSale.value;
 
-  var newStore = new Store (name, minCust, maxCust,avgCustomerSale);
+  let newStore = new Store (name, minCust, maxCust,avgCustomerSale);
   // Can't use render method anymore, using push method to push the new store entered by user onto the AllStores array (or at the end of the table)
   allStores.push(newStore);
   //this will clear out the existing table and build it again
@@ -39,32 +36,31 @@ function Store (name, minCust, maxCust,avgCustomerSale) { //constructor function
 }
 
 Store.prototype.render= function() {// function to create table
-  var mainTable = document.getElementById('mainTable'); // We get a reference to the table here
-  var storeTableRow = document.createElement('tr');// create a table row because a new is needed for FOR EVERY STORE 
+  let mainTable = document.getElementById('mainTable'); // reference to the table 
+  let storeTableRow = document.createElement('tr');// creates a table row  
   //create table data for store name
-  var storeNameTableData = document.createElement('td'); // EVERY ROW HAS TABLE DATA so I had to reference to the td
+  let storeNameTableData = document.createElement('td'); 
   // set the content of the table data
   storeNameTableData.textContent = this.name; 
-  //added table data to the ROW object and by passing it in
-  storeTableRow.appendChild(storeNameTableData);
+  storeTableRow.appendChild(storeNameTableData);//adds data to table
 
   
  
   // Loop through storeHrs and create table data for each one
-  for (var i = 0; i < this.storeHrs.length; i++) {
-    var custThisHour = this.getRandomNum(this.minCust,this.maxCust);
-    var cookiesPerHr = Math.round(this.avgCustSale * custThisHour);
+  for (let i = 0; i < this.storeHrs.length; i++) {
+    let custThisHour = this.getRandomNum(this.minCust,this.maxCust);
+    let cookiesPerHr = Math.round(this.avgCustSale * custThisHour);
     this.cookieSalesPerHr.push(cookiesPerHr);//use push method to add cookie sales per hr onto array
     this.totalCookies = this.totalCookies + cookiesPerHr;
     //I have two variables for cookies per hour to represent the totals for each row and column
     // this is the last table row
     totalCookiesPerHour[i] = totalCookiesPerHour[i] + cookiesPerHr;
-    var specificHourTableData = document.createElement('td');
+    let specificHourTableData = document.createElement('td');
     specificHourTableData.textContent = cookiesPerHr;
     storeTableRow.appendChild(specificHourTableData);
   }
 
-  var dailyLocationTotal = document.createElement('td'); // creating daily location total cell
+  let dailyLocationTotal = document.createElement('td'); // creating daily location total cell
   dailyLocationTotal.textContent = this.totalCookies;// rendering total cookies into cell
   storeTableRow.appendChild(dailyLocationTotal); // adding daily locaton numbers to cell
 
@@ -80,36 +76,36 @@ Store.prototype.getRandomNum = function(min, max) { // Took getRandomNum and tur
 
 //these functions render functions
 function renderTimeDisplay() {
-  var mainTable = document.getElementById('mainTable');
-  var storeTableRow = document.createElement('tr');
+  let mainTable = document.getElementById('mainTable');
+  let storeTableRow = document.createElement('tr');
   storeTableRow.appendChild(document.createElement('th'));
   //loop adds store hours as it iterates from index 0, adding each hr onto the page with textContent property
-  for (var i = 0; i < storeHrs.length; i++) {
-    var storeHrsTableCell = document.createElement('th');
+  for (let i = 0; i < storeHrs.length; i++) {
+    let storeHrsTableCell = document.createElement('th');
     storeHrsTableCell.textContent = storeHrs[i];
     storeTableRow.appendChild(storeHrsTableCell);
   }
-  var dailyLocationTotal = document.createElement('th'); // had to create table data and store to var
+  let dailyLocationTotal = document.createElement('th'); 
   dailyLocationTotal.textContent = 'Daily Location Total';
   storeTableRow.appendChild(dailyLocationTotal); // adding daily location total string to cell
   mainTable.appendChild(storeTableRow);
 }
 
 function renderHourlyTotals() {
-  var mainTable = document.getElementById('mainTable');
-  var storeTableRow = document.createElement('tr');
-  var total = document.createElement('td'); // had to create table data and store to var
-  var grandTotal = 0;
+  let mainTable = document.getElementById('mainTable');
+  let storeTableRow = document.createElement('tr');
+  let total = document.createElement('td'); // had to create table data and store to var
+  let grandTotal = 0;
   total.textContent = 'Totals';
   storeTableRow.appendChild(total);
-  for (var i = 0; i < storeHrs.length; i++) {
-    var totalsCell = document.createElement('td');
+  for (let i = 0; i < storeHrs.length; i++) {
+    let totalsCell = document.createElement('td');
     totalsCell.textContent = totalCookiesPerHour[i];
     storeTableRow.appendChild(totalsCell);
     grandTotal = grandTotal + totalCookiesPerHour[i];
   }
   // adding daily location total string to cell
-  var grandTotalCell = document.createElement('td');
+  let grandTotalCell = document.createElement('td');
   grandTotalCell.textContent = grandTotal;
   storeTableRow.appendChild(grandTotalCell);
   mainTable.appendChild(storeTableRow);
@@ -120,18 +116,18 @@ function renderTable() {
   // write a for loop to loop through each of store hours
   totalCookiesPerHour = [];
   //now we have an array of zeros and each zero is at an index that cooresponds to store hour
-  for (var i = 0; i < storeHrs.length; i++) {
+  for (let i = 0; i < storeHrs.length; i++) {
     totalCookiesPerHour.push(0);
   }
   // we need to add cookiesPerHr that was calculated in the beginning
   // we create our table again and then set the inner HTML to an empty string. .innerHTML clears all data in table element
-  var mainTable = document.getElementById('mainTable');
+  let mainTable = document.getElementById('mainTable');
   mainTable.innerHTML = '';
   // grab timeDisplay function as this renders the times of the store--so this should be step #1 (delete out old timeDisplay function
   renderTimeDisplay();
   // using a for loop to cycle through each store in the allStores array and called allStores.render()
   // The loop will run through the array and render ALL STORES to the table
-  for (var k = 0; k < allStores.length; k++) {
+  for (let k = 0; k < allStores.length; k++) {
     allStores[k].render();
   }
   //rendering hourly totals inside renderTable function to display hourly totals on the table
@@ -139,18 +135,18 @@ function renderTable() {
 }
 
 //this code is what makes the table work
-var storeForm = document.getElementById('addStore');
+let storeForm = document.getElementById('addStore');
 storeForm.addEventListener('submit', addStore);
 
 
 // Below each instance are the render method calls/function calls for each location using listOfTimes
-var seattleStore = new Store('Seattle',23,65,6.3); // new Store(arguments)
-var tokyoStore = new Store('Tokyo',3,24,1.2);// new variables aren't necessary
-var dubaiStore = new Store('Dubai',11,38,3.7);
-var parisStore = new Store('Paris',20,38,2.3);
-var limaStore = new Store('Lima',2,16,4.7);
+let seattleStore = new Store('Seattle',23,65,6.3); // new Store(arguments)
+let tokyoStore = new Store('Tokyo',3,24,1.2);// new variables aren't necessary
+let dubaiStore = new Store('Dubai',11,38,3.7);
+let parisStore = new Store('Paris',20,38,2.3);
+let limaStore = new Store('Lima',2,16,4.7);
 
 // created an array using variables holding store names as indexes in the new array
-var allStores = [seattleStore,tokyoStore,dubaiStore,parisStore,limaStore];
+let allStores = [seattleStore,tokyoStore,dubaiStore,parisStore,limaStore];
 
 renderTable();
